@@ -21,7 +21,7 @@ const SwitchComponent = ({ lightMode, setLightMode } : Props) => {
         paddingHorizontal: 4,
       }}
     >
-      <Feather name="sun" size={18} color={lightMode ? 'gray' : 'orange'} style={{ marginRight: 8 }} />
+      <Feather name="sun" size={18} color={lightMode ? 'gray' : '#fb8500'} style={{ marginRight: 8 }} />
 
       <Switch
         value={lightMode}
@@ -32,7 +32,7 @@ const SwitchComponent = ({ lightMode, setLightMode } : Props) => {
         style={{ transform: [{ scale: 0.8 }] }}
       />
 
-      <Feather name="moon" size={18} color={lightMode ? 'yellow' : 'gray'} style={{ marginLeft: 8 }} />
+      <Feather name="moon" size={18} color={lightMode ? '#023e8a' : 'gray'} style={{ marginLeft: 8 }} />
     </View>
   );
 }

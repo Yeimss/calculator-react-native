@@ -23,6 +23,26 @@ export const globalLight = StyleSheet.create({
         fontSize: 40,
         textAlign: 'right',
         fontWeight: 300
+    },
+    row:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 18,
+        paddingHorizontal: 10
+    },
+    button:{
+        height:80,
+        width:80,
+        //backgroundColor:Colors.dark.functionsBg
+        borderRadius:100,
+        justifyContent:'center',
+        marginHorizontal:10
+    },
+    buttonText:{
+        textAlign:'center',
+        padding:10,
+        fontSize:30,
+        fontWeight:400
     }
 })
 
@@ -47,5 +67,25 @@ export const globalDark = StyleSheet.create({
         fontSize: 40,
         textAlign: 'right',
         fontWeight: 300
+    },
+    row:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 18,
+        paddingHorizontal: 10
+    },
+    button:{
+        height:80,
+        width:80,
+        //backgroundColor:Colors.dark.functionsBg
+        borderRadius:100,
+        justifyContent:'center',
+        marginHorizontal:10
+    },
+    buttonText:{
+        textAlign:'center',
+        padding:10,
+        fontSize:30,
+        fontWeight:400
     }
 })
