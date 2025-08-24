@@ -1,14 +1,33 @@
-import { Slot } from 'expo-router';
-import React from 'react';
-import { Text, View } from 'react-native';
+// _layout.tsx
+import React, { useState } from "react";
+import { Slot } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native";
+import { useFonts } from "expo-font";
+
+import { ThemeProvider, useTheme } from "@/context/theme-context";
+import SwitchComponent from "@/components/utils/switck";
+import { globalDark, globalLight } from "@/styles/global-styles";
 
 const RootLayout = () => {
-    return (
-      <View>
-        <Text> textInComponent </Text>
+  const [lightMode, setLightMode] = useState(false);
+  const [loaded] = useFonts({
+    
+    SpaceMono: require("./../assets/fonts/SpaceMono-Regular.ttf"),
+  });
+
+  const styles = lightMode ? globalLight : globalDark;
+  if (!loaded) return null;
+
+  return (
+    <ThemeProvider lightMode={lightMode} setLightMode={setLightMode}>
+      <SafeAreaView style={ styles.background }>
+        <SwitchComponent lightMode={lightMode} setLightMode={setLightMode} />
         <Slot />
-      </View>
-    )
-}
+        <StatusBar style={lightMode ? "dark" : "light"} />
+      </SafeAreaView>
+    </ThemeProvider>
+  );
+};
 
 export default RootLayout;
