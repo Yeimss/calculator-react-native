@@ -26,8 +26,8 @@ const SwitchComponent = ({ lightMode, setLightMode } : Props) => {
       <Switch
         value={lightMode}
         onValueChange={setLightMode}
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={lightMode ? '#f5dd4b' : '#f4f3f4'}
+        trackColor={{ false: '#f5dd4b', true: '#81b0ff' }}
+        thumbColor={lightMode ? '#f5dd4b' : '#81b0ff'}
         ios_backgroundColor="#3e3e3e"
         style={{ transform: [{ scale: 0.8 }] }}
       />

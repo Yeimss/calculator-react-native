@@ -1,5 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { useTheme } from "@/context/theme-context";
+import { useCalculator } from "@/hooks/useCalculator";
 import * as Haptics from 'expo-haptics';
 import { Pressable, Text } from "react-native";
 type btnType = 'number' | 'function' | 'operator'; 
