@@ -12,20 +12,8 @@ export const useCalculator = () => {
     const [number, setNumber] = useState('0');
     const [prevNumber, setPrevNumber] = useState('0');
     
-    useEffect(() => {
-        //calcular subresultado
-        setFormula(number)
-
-    }, [number])
-
-    const lastOperation = useRef<Operator|undefined>(Operator.add);
-
-    useEffect(() => {
-        //calcular subresultado
-        setFormula(number)
-
-    }, [number])
-    
+    const lastOperation = useRef<Operator|undefined>(undefined);
+       
     useEffect(() => {
         if(lastOperation.current){
             const firstFormulaPart = formula.split(' ').at(0)
@@ -34,6 +22,14 @@ export const useCalculator = () => {
             setFormula(number)
         }
     }, [number])
+    
+    useEffect(() => {
+        if(formula.split(' ').length > 1){
+            let subResult = calculateSubResult();
+            setPrevNumber(`${subResult}`)
+        }
+    }, [formula])
+    
     const clean = () => {
         setNumber('0')
         setPrevNumber('0')
@@ -57,9 +53,10 @@ export const useCalculator = () => {
     }
 
     const setLastNumber = () => {
-        // TODO: Calculate
+        calculateResult();
+
         if(number.endsWith('.')){
-            return setPrevNumber(number.slice(0, -1))
+            setPrevNumber(number.slice(0, -1))
         }
         setPrevNumber(number)
         setNumber('0')   
@@ -68,28 +65,64 @@ export const useCalculator = () => {
         setLastNumber();
         lastOperation.current = Operator.divide;
     }
-    const subtractionOperation = () => {
+
+    const subtractOperation = () => {
         setLastNumber();
         lastOperation.current = Operator.substract;
     }
+
     const addOperation = () => {
         setLastNumber();
         lastOperation.current = Operator.add;
     }
-    const muliplyOperation = () => {
+
+    const multiplyOperation = () => {
         setLastNumber();
         lastOperation.current = Operator.muliply;
     }
+    const calculateSubResult = () => {
+        const [ firstValue, operator, secondValue] = formula.split(' ');
+        const n1 = Number(firstValue)
+        const n2 = Number(secondValue)
+        if( isNaN(n2) ) return n1;
+        switch (operator) {
+            case Operator.add:
+                return n1 + n2;
+            case Operator.divide:
+                return n1 / n2;
+            case Operator.substract:
+                return n1 - n2;
+            case Operator.muliply:
+                return n1 * n2;
+            default:
+                throw Error(`Operación invalida: ${operator} `)
+        }
+    }
+
+    const calculateResult = () => {
+        const result = calculateSubResult();
+        setFormula(`${result}`);
+
+        lastOperation.current = undefined;
+        setPrevNumber('0');
+    };
+
+
     const buildNumber = (numberString:string) => {
         //verificar si ya existe el punto decimal
-        if (number.includes('.') && numberString==='.') return;
-        if (number.startsWith('0') || number.startsWith('0')){
-            if(numberString === '.') return setNumber(number+numberString);
-            if(numberString === '0' && number.includes('.')) return setNumber(number+numberString);
-            if(numberString === '0' && !number.includes('.')) return;
-            if(numberString !== '0' && !number.includes('.') && number.length === 1) return setNumber(numberString);
-        }
+        if (number.includes('.') && numberString === '.') return;
 
+        if (number.startsWith('0') || number.startsWith('-0')){
+
+            if(numberString === '.') return setNumber(number + numberString);
+            
+            if(numberString === '0' && number.includes('.')) return setNumber(number + numberString);
+            
+            if(numberString !== '0' && !number.includes('.')) return setNumber(numberString);
+            
+            if(numberString === '0' && !number.includes('.')) return;
+        }
+        
         setNumber(number + numberString)
     }
 
@@ -104,8 +137,10 @@ export const useCalculator = () => {
         toggleSign,
         deleteLast,
         divideOperation,
-        subtractionOperation,
         addOperation,
-        muliplyOperation
+        multiplyOperation,
+        subtractOperation,   
+        calculateResult,
+        calculateSubResult
     }
 }

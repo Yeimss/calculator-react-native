@@ -16,8 +16,10 @@ const CalculatorApp = () => {
         deleteLast,
         divideOperation,
         addOperation, 
-        muliplyOperation,
-        subtractionOperation
+        multiplyOperation,
+        subtractOperation,
+        calculateResult,
+        calculateSubResult
     } = useCalculator()
 
     return ( 
@@ -46,14 +48,14 @@ const CalculatorApp = () => {
           <CalculatorButton label='7' btnType='number' onPress={() => buildNumber('7')}></CalculatorButton>
           <CalculatorButton label='8' btnType='number' onPress={() => buildNumber('8')}></CalculatorButton>
           <CalculatorButton label='9' btnType='number' onPress={() => buildNumber('9')}></CalculatorButton>
-          <CalculatorButton label='x' btnType='operator' onPress={muliplyOperation}></CalculatorButton>
+          <CalculatorButton label='x' btnType='operator' onPress={multiplyOperation}></CalculatorButton>
         </View>
 
         <View style={styles.row}>
           <CalculatorButton label='4' btnType='number' onPress={() => buildNumber('4')}></CalculatorButton>
           <CalculatorButton label='5' btnType='number' onPress={() => buildNumber('5')}></CalculatorButton>
           <CalculatorButton label='6' btnType='number' onPress={() => buildNumber('6')}></CalculatorButton>
-          <CalculatorButton label='-' btnType='operator' onPress={subtractionOperation}></CalculatorButton>
+          <CalculatorButton label='-' btnType='operator' onPress={subtractOperation}></CalculatorButton>
         </View>
 
         <View style={styles.row}>
@@ -65,8 +67,8 @@ const CalculatorApp = () => {
 
         <View style={styles.row}>
           <CalculatorButton label='0' doubleSize={true} btnType='number' onPress={() => buildNumber('0')}></CalculatorButton>
-          <CalculatorButton label='.' btnType='number' onPress={() => buildNumber('.')}></CalculatorButton>
-          <CalculatorButton label='=' btnType='operator' onPress={() => console.log('=')}></CalculatorButton>
+          <CalculatorButton label='.' btnType='number' onPress={ () => buildNumber('.') }></CalculatorButton>
+          <CalculatorButton label='=' btnType='operator' onPress={ calculateResult }></CalculatorButton>
         </View>
 
       </SafeAreaView>
